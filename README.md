@@ -12,3 +12,8 @@ Write these commands on your terminal to run:
 
 g++ -std=c++17 main.cpp -o intrusion_detector.exe
 ./intrusion_detector.exe
+
+
+
+
+A simplified version of the code is also uploaded which is used in the report
