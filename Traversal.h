@@ -10,31 +10,26 @@
 
 using namespace std;
 
-// Represents a computer/server/network device
 struct Node {
     int id;
     string name;
-    int criticality;       // 1 - 100
-    bool critical;         // Is this a high-value target?
+    int criticality;
+    bool critical;
 };
 
-// Represents a directed network connection
 struct Edge {
     int id;
     int from;
     int to;
 
-    // Used by Dijkstra
     double baseCost;
     double firewallPenalty;
     double anomalyScore;
     double attackWeight;
 
-    // Used by Min-Cut
     double businessCost;
 };
 
-// Complete network graph
 class Graph {
 private:
     vector<Node> nodes;
@@ -70,7 +65,6 @@ public:
         double attackWeight =
             baseCost + firewallPenalty - anomalyScore;
 
-        // Edge weights must remain positive
         attackWeight = max(0.1, attackWeight);
 
         Edge e{
@@ -173,15 +167,10 @@ public:
 };
 
 
-// ============================================================
-// BFS / DFS CLASS
-// ============================================================
-
 class GraphTraversal {
 
 public:
 
-    // BFS: Finds every node reachable from the compromised PC
     vector<int> BFS(const Graph& graph, int source,
                     vector<int>& distance) {
 
@@ -227,13 +216,9 @@ public:
     }
 
 
-    // DFS cycle detection
     bool DFSUtil(const Graph& graph,
                  int u,
                  vector<int>& state) {
-
-        // 1 = currently visiting
-        // 2 = completely visited
 
         state[u] = 1;
 

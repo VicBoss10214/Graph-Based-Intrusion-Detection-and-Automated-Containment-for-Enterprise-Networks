@@ -37,7 +37,6 @@ public:
         vector<double> dist(n, INF);
         vector<int> previous(n, -1);
 
-        // {distance, node}
         priority_queue<
             pair<double, int>,
             vector<pair<double, int>>,
@@ -83,9 +82,6 @@ public:
         }
 
 
-        // Find the reachable critical target
-        // with the lowest attack-path cost.
-
         int bestTarget = -1;
         double bestDistance = INF;
 
@@ -108,8 +104,6 @@ public:
         result.target = bestTarget;
         result.distance = bestDistance;
 
-
-        // Reconstruct path
 
         int current = bestTarget;
 

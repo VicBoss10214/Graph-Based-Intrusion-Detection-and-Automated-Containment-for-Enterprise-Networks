@@ -20,10 +20,8 @@ private:
 
         double capacity;
 
-        // Original network edge ID
         int originalEdgeId;
 
-        // Original capacity before residual changes
         double originalCapacity;
     };
 
@@ -240,7 +238,6 @@ public:
             1e9;
 
 
-        // Add original network edges
         for (const Edge& edge :
              graph.getEdges()) {
 
@@ -253,7 +250,6 @@ public:
         }
 
 
-        // Connect compromised PC to super-source
         addFlowEdge(
             superSource,
             compromisedNode,
@@ -262,12 +258,9 @@ public:
         );
 
 
-        // Connect all critical nodes to super-sink
         for (int criticalNode :
              graph.getCriticalNodes()) {
 
-            // Do not allow the compromised node
-            // itself to become source and sink.
             if (criticalNode == compromisedNode)
                 continue;
 
@@ -312,9 +305,6 @@ public:
 
         result.maxFlow = maxFlow;
 
-
-        // Find original graph edges crossing
-        // from reachable to unreachable.
 
         for (const Edge& edge :
              graph.getEdges()) {

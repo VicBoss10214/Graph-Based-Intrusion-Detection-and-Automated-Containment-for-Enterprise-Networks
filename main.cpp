@@ -11,10 +11,6 @@
 using namespace std;
 
 
-// ============================================================
-// PRINT PATH
-// ============================================================
-
 void printNodeList(
     const Graph& graph,
     const vector<int>& nodes) {
@@ -33,10 +29,6 @@ void printNodeList(
 }
 
 
-// ============================================================
-// SIMULATE ONE COMPROMISED COMPUTER
-// ============================================================
-
 void simulateAttack(
     const Graph& graph,
     int compromisedNode) {
@@ -50,10 +42,6 @@ void simulateAttack(
 
     cout << "============================================================\n";
 
-
-    // --------------------------------------------------------
-    // 1. BFS
-    // --------------------------------------------------------
 
     GraphTraversal traversal;
 
@@ -86,7 +74,6 @@ void simulateAttack(
     }
 
 
-    // DFS
     bool cycle =
         traversal.hasCycle(graph);
 
@@ -99,10 +86,6 @@ void simulateAttack(
 
     cout << '\n';
 
-
-    // --------------------------------------------------------
-    // 2. DIJKSTRA
-    // --------------------------------------------------------
 
     cout << "\n[2] DIJKSTRA - ATTACK PATH ANALYSIS\n";
 
@@ -120,10 +103,6 @@ void simulateAttack(
     );
 
 
-    // --------------------------------------------------------
-    // 3. MIN-CUT
-    // --------------------------------------------------------
-
     cout << "\n[3] MIN-CUT - SURGICAL CONTAINMENT\n";
 
     MinCutAlgorithm minCut;
@@ -140,10 +119,6 @@ void simulateAttack(
     );
 
 
-    // --------------------------------------------------------
-    // 4. TRADITIONAL METHOD
-    // --------------------------------------------------------
-
     double traditionalDamage =
         graph.totalBusinessCost();
 
@@ -159,10 +134,6 @@ void simulateAttack(
          << traditionalDamage
          << '\n';
 
-
-    // --------------------------------------------------------
-    // 5. COMPARISON
-    // --------------------------------------------------------
 
     double intelligentDamage =
         cutResult.totalCost;
@@ -220,24 +191,16 @@ void simulateAttack(
 }
 
 
-// ============================================================
-// MAIN
-// ============================================================
-
 int main() {
 
     ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    cin.tie(&cout);
 
 
     cout << "============================================================\n";
     cout << " GRAPH-BASED INTRUSION DETECTION & CONTAINMENT\n";
     cout << "============================================================\n";
 
-
-    // --------------------------------------------------------
-    // INPUT NETWORK
-    // --------------------------------------------------------
 
     int n;
 
@@ -284,10 +247,6 @@ int main() {
         );
     }
 
-
-    // --------------------------------------------------------
-    // INPUT EDGES
-    // --------------------------------------------------------
 
     int m;
 
@@ -349,36 +308,11 @@ int main() {
     }
 
 
-    // --------------------------------------------------------
-    // DISPLAY GRAPH
-    // --------------------------------------------------------
-
     graph.printGraph();
 
 
-    // --------------------------------------------------------
-    // PRIORITY QUEUE
-    // --------------------------------------------------------
-
     IncidentPriorityQueue incidentQueue;
 
-
-    /*
-       We simulate every NON-CRITICAL node as a possible
-       compromised computer.
-
-       Severity:
-           Based on how important the compromised node is.
-
-       Asset Value:
-           Based on the highest critical target.
-
-       Confidence:
-           For simulation we use 0.90.
-
-       In a real system these values would come from
-       IDS/EDR telemetry.
-    */
 
     int highestCriticality = 1;
 
@@ -424,10 +358,6 @@ int main() {
     incidentQueue.printPriorityOrder(graph);
 
 
-    // --------------------------------------------------------
-    // RUN SIMULATION FOR EVERY POSSIBLE COMPROMISED PC
-    // --------------------------------------------------------
-
     cout << "\n\n";
     cout << "############################################################\n";
     cout << "#              ATTACK SIMULATION PHASE                    #\n";
@@ -436,9 +366,6 @@ int main() {
 
     for (const Node& node :
          graph.getNodes()) {
-
-        // We only simulate ordinary PCs as
-        // initial compromise points.
 
         if (!node.critical) {
 
